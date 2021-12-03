@@ -1,4 +1,5 @@
 #Advent2
+#Author:Lara
 with open('input.txt') as f:
   report = [int(i) for i in f]
 counter= 0
