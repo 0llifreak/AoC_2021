@@ -53,5 +53,50 @@ print("Solution Part 1: ", epsilon_rate_int*gamma_rate_int)
 # Solution Part 2
 # --------------------------------
 
+input = puzzle.input_data.split("\n")
 
-#print("Solution Part 2: ", solution)
+def rate_calc(input, gas):
+    
+    bit_index = 0
+    new_list = []
+
+    while len(input) > 1:
+        length = len(input)
+        bit_sum = 0
+
+        for line in input:
+            bit_sum += int(line[bit_index])
+
+        for line in input:
+            if gas == "o2":
+                if (bit_sum - (length / 2)) < 0:
+                    if int(line[bit_index]) == 0:
+                        new_list.append(line)
+                else:
+                    if int(line[bit_index]) == 1:
+                        new_list.append(line)
+
+            elif gas == "co2":
+                if (bit_sum - (length / 2)) >= 0:
+                    if int(line[bit_index]) == 0:
+                        new_list.append(line)
+                else:
+                    if int(line[bit_index]) == 1:
+                        new_list.append(line)
+
+        input = new_list.copy()
+        new_list.clear()
+        bit_index += 1
+
+    return(input)
+
+oxygen_rate = rate_calc(input, "o2")
+co2_rate = rate_calc(input, "co2")
+
+# binary to decimal
+oxygen_rate_int = int("".join(str(i) for i in oxygen_rate),2)
+co2_rate_int = int("".join(str(i) for i in co2_rate),2)
+
+print(oxygen_rate, oxygen_rate_int)
+print(co2_rate, co2_rate_int)
+print("Solution Part 2: ", oxygen_rate_int*co2_rate_int)
