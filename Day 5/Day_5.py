@@ -51,7 +51,6 @@ print("Solution Part 1: ", overlapping_count)
 # --------------------------------
 # Solution Part 2
 # --------------------------------
-
 input = puzzle.input_data.split("\n")
 
 coordinates = []
@@ -76,6 +75,7 @@ for pair in coordinates:
     elif pair[0][1] == pair[1][1]:
         for x in range(abs(pair[0][0]-pair[1][0]) + 1):
             zeors_array[min(pair[0][0], pair[1][0]) + x][pair[0][1]] += 1
+
     # diagonal lines
     else:
         if pair[0][0] < pair[1][0] and pair[0][1] < pair[1][1]:
@@ -90,8 +90,8 @@ for pair in coordinates:
         if pair[0][0] > pair[1][0] and pair[0][1] < pair[1][1]:
             diff = min(pair[0][0]-pair[1][0], pair[1][1] - pair[0][1]) + 1
             for step in range(diff):
-
                 zeors_array[pair[0][0] - step][pair[0][1] + step] += 1
+
         elif pair[0][0] < pair[1][0] and pair[0][1] > pair[1][1]:
             diff = min(pair[1][0]-pair[0][0], pair[0][1] - pair[1][1]) + 1
             for step in range(diff):
