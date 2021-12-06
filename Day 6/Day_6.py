@@ -8,6 +8,7 @@
 # Author: Olli
 # --------------------------------
 
+import timeit
 import numpy as np
 from aocd.models import Puzzle
 
@@ -42,8 +43,8 @@ def lanternfish_numpy(input):
         input = input - 1
     return len(input)
 
-#solution = lanternfish(input)
-#print("Solution Part 1: ", solution)
+solution = lanternfish(input)
+print("Solution Part 1: ", solution)
 
 
 # --------------------------------
@@ -52,20 +53,27 @@ def lanternfish_numpy(input):
 input = puzzle.input_data.split(",")
 input = [int(i) for i in input]
 
-fisch_day = {0: 0, 1: 0, 2: 0, 3 : 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
-lifetime, counts = np.unique(input, return_counts=True)
+def lanternfish_2(input):
+    fisch_day = {0: 0, 1: 0, 2: 0, 3 : 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
+    lifetime, counts = np.unique(input, return_counts=True)
 
-for idx in lifetime:
-    fisch_day[idx] += counts[idx - 1]
+    for idx in lifetime:
+        fisch_day[idx] += counts[idx - 1]
 
-for days in range(256):
-    count0 = fisch_day[0]
+    for days in range(256):
+        count0 = fisch_day[0]
 
-    for idx in range(8):
-        fisch_day[idx] = fisch_day[idx + 1]
+        for idx in range(8):
+            fisch_day[idx] = fisch_day[idx + 1]
 
-    fisch_day[6] += count0
-    fisch_day[8] = count0
+        fisch_day[6] += count0
+        fisch_day[8] = count0
 
-solution = [fisch_day[x] for x in fisch_day]
-print("Solution Part 2: ", sum(solution))
+    return(sum([fisch_day[x] for x in fisch_day]))
+
+start = timeit.default_timer()
+solution = lanternfish_2(input)
+stop = timeit.default_timer()
+
+print("Solution Part 2: ", solution)
+print('Time Olli: ', stop - start)  
