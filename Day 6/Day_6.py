@@ -53,6 +53,7 @@ def lanternfish_numpy(input):
 
 input = puzzle.input_data.split(",")
 input = [int(i) for i in input]
+#solution = []
 
 fisch_day = {0: 0, 1: 0, 2: 0, 3 : 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
 lifetime, counts = np.unique(input, return_counts=True)
@@ -62,7 +63,6 @@ for idx in lifetime:
 
 for days in range(256):
     count0 = fisch_day[0]
-    count6 = fisch_day[6]
 
     for idx in range(8):
         fisch_day[idx] = fisch_day[idx + 1]
@@ -70,8 +70,5 @@ for days in range(256):
     fisch_day[6] += count0
     fisch_day[8] = count0
 
-solution = []
-for x in fisch_day:
-    solution.append(fisch_day[x])
-
+solution = [fisch_day[x] for x in fisch_day]
 print("Solution Part 2: ", sum(solution))
