@@ -22,23 +22,56 @@ puzzle = Puzzle(year=2021, day=6)
 input = puzzle.input_data.split(",")
 input = [int(i) for i in input]
 
-for days in range(80):
-    for idx, fischie in enumerate(input):
-        if fischie != 0:
-            input[idx] -= 1
-        else:
-            input[idx] = 6
-            input.append(9)
+def lanternfish(input):
+    for _ in range(80):
+        for idx, fischie in enumerate(input):
+            if fischie != 0:
+                input[idx] -= 1
+            else:
+                input[idx] = 6
+                input.append(9)
+    return len(input)
 
-print("Solution Part 1: ", len(input))
+def lanternfish_numpy(input):
+    """Slower but with numpy^^"""
+    input = np.array(input, dtype=np.int8)
+    for _ in range(80):
+        for idx in np.where(input == 0)[0]:
+            input[idx] = 7
+            input = np.append(input, 9)
+        input = input - 1
+    return len(input)
+
+#solution = lanternfish(input)
+#print("Solution Part 1: ", solution)
 
 
 # --------------------------------
 # Solution Part 2
 # --------------------------------
-input = puzzle.input_data.split("\n")
 
 
+input = puzzle.input_data.split(",")
+input = [int(i) for i in input]
 
+fisch_day = {0: 0, 1: 0, 2: 0, 3 : 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
+lifetime, counts = np.unique(input, return_counts=True)
 
-#print("Solution Part 2: ", )
+for idx in lifetime:
+    fisch_day[idx] += counts[idx - 1]
+
+for days in range(256):
+    count0 = fisch_day[0]
+    count6 = fisch_day[6]
+
+    for idx in range(8):
+        fisch_day[idx] = fisch_day[idx + 1]
+
+    fisch_day[6] += count0
+    fisch_day[8] = count0
+
+solution = []
+for x in fisch_day:
+    solution.append(fisch_day[x])
+
+print("Solution Part 2: ", sum(solution))
