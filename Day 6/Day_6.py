@@ -19,12 +19,18 @@ puzzle = Puzzle(year=2021, day=6)
 # --------------------------------
 # Solution Part 1
 # --------------------------------
-input = puzzle.input_data.split("\n")
+input = puzzle.input_data.split(",")
+input = [int(i) for i in input]
 
+for days in range(80):
+    for idx, fischie in enumerate(input):
+        if fischie != 0:
+            input[idx] -= 1
+        else:
+            input[idx] = 6
+            input.append(9)
 
-
-
-#print("Solution Part 1: ",)
+print("Solution Part 1: ", len(input))
 
 
 # --------------------------------
