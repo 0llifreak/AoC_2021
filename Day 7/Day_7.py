@@ -40,6 +40,14 @@ print("Solution Part 1: ", solution)
 input = puzzle.input_data.split(",")
 input = [int(i) for i in input]
 
+input_np = np.array(input)
+cost_list = []
 
-solution = 0
+for pos in range(max(input)):
+    # use gauß sum: https://www.wikiwand.com/de/Gau%C3%9Fsche_Summenformel
+    n = np.array(abs(input_np - pos) + 1) # add + 1 because gauß sum starts at 0
+    gauß_sum = n*(n - 1) // 2 # calculate gauß sum: 1+2+3+...+n = n(n+1)/2
+    cost_list.append(sum(gauß_sum)) 
+
+solution = min(cost_list)
 print("Solution Part 2: ", solution)
