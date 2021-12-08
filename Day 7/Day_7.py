@@ -25,13 +25,11 @@ input = [int(i) for i in input]
 input_np = np.array(input)
 cost_list = []
 
-unique_input = set(input) # nice way to remove duplicate values ;-)
-
-for pos in unique_input:
+for pos in range(max(input)):
     cost_list.append(sum(abs(input_np - pos))) 
 
 solution = min(cost_list)
-print("Solution Part 1: ", solution)
+print("Solution Part 1: ", min(cost_list))
 
 
 # --------------------------------

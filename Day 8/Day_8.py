@@ -9,7 +9,6 @@
 # --------------------------------
 
 from aocd.models import Puzzle
-import numpy as np
 
 # --------------------------------
 # Get input data from AoC
